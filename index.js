@@ -3,10 +3,8 @@ const contextCanvas = canvas.getContext('2d')
 
 canvas.width = 1024
 canvas.height = 576
-
-contextCanvas.fillRect(0, 0, canvas.width, canvas.height)
-
 const gravity = 0.7
+contextCanvas.fillRect(0, 0, canvas.width, canvas.height)
 
 const background = new Sprite({
   position: {
@@ -26,9 +24,9 @@ const shop = new Sprite({
   frameMax: 6
 })
 
-const player = new Fighter({
+const leftPlayer = new Fighter({
   position: {
-    x: 0,
+    x: 100,
     y: 0
   },
   velocity: {
@@ -86,9 +84,9 @@ const player = new Fighter({
   }
 })
 
-const ennemy = new Fighter({
+const rightPlayer = new Fighter({
   position: {
-    x: 400,
+    x: 860,
     y: 100
   },
   velocity: {
@@ -168,147 +166,98 @@ let lastKey
 decreaseTimer()
 
 // ---------------------------------
-function animate () {
+function animate() {
   window.requestAnimationFrame(animate)
   contextCanvas.fillStyle = 'black'
   contextCanvas.fillRect(0, 0, canvas.width, canvas.height)
   background.update()
   shop.update()
   contextCanvas.fillStyle = 'rgba(255, 255, 255, 0.25)'
-  contextCanvas.fillRect(0,0, canvas.width, canvas.height)
-  player.update()
-  ennemy.update()
+  contextCanvas.fillRect(0, 0, canvas.width, canvas.height)
+  leftPlayer.update()
+  rightPlayer.update()
 
-  player.velocity.x = 0
-  ennemy.velocity.x = 0
+  leftPlayer.velocity.x = 0
+  rightPlayer.velocity.x = 0
 
-  // -- Player movement
-  if (keys.q.pressed && player.lastKey === 'q') {
-    player.velocity.x = -5
-    player.switchSprite('run')
-  } else if (keys.d.pressed && player.lastKey === 'd') {
-    player.velocity.x = 5
-    player.switchSprite('run')
+  // -- leftPlayer movement
+  if (keys.q.pressed && leftPlayer.lastKey === 'q') {
+    leftPlayer.velocity.x = -5
+    leftPlayer.switchSprite('run')
+  } else if (keys.d.pressed && leftPlayer.lastKey === 'd') {
+    leftPlayer.velocity.x = 5
+    leftPlayer.switchSprite('run')
   } else {
-    player.switchSprite('idle')
+    leftPlayer.switchSprite('idle')
   }
-  if (player.velocity.y < 0) { // -- jumping up
-    player.switchSprite('jump')
-  } else if (player.velocity.y > 0) { // falling down
-    player.switchSprite('fall')
+  if (leftPlayer.velocity.y < 0) { // -- jumping up
+    leftPlayer.switchSprite('jump')
+  } else if (leftPlayer.velocity.y > 0) { // falling down
+    leftPlayer.switchSprite('fall')
   }
 
-  // -- Ennemy movement
-  if (keys.ArrowLeft.pressed && ennemy.lastKey === 'ArrowLeft') {
-    ennemy.velocity.x = -5
-    ennemy.switchSprite('run')
-  } else if (keys.ArrowRight.pressed && ennemy.lastKey === 'ArrowRight') {
-    ennemy.velocity.x = 5
-    ennemy.switchSprite('run')
+  // -- rightPlayer movement
+  if (keys.ArrowLeft.pressed && rightPlayer.lastKey === 'ArrowLeft') {
+    rightPlayer.velocity.x = -5
+    rightPlayer.switchSprite('run')
+  } else if (keys.ArrowRight.pressed && rightPlayer.lastKey === 'ArrowRight') {
+    rightPlayer.velocity.x = 5
+    rightPlayer.switchSprite('run')
   } else {
-    ennemy.switchSprite('idle')
+    rightPlayer.switchSprite('idle')
   }
-  if (ennemy.velocity.y < 0) { // -- jumping up
-    ennemy.switchSprite('jump')
-  } else if (ennemy.velocity.y > 0) { // falling down
-    ennemy.switchSprite('fall')
+  if (rightPlayer.velocity.y < 0) { // -- jumping up
+    rightPlayer.switchSprite('jump')
+  } else if (rightPlayer.velocity.y > 0) { // falling down
+    rightPlayer.switchSprite('fall')
   }
 
-  // -- player detect collision
-  if (rectangularCollision({ rectangle1: player, rectangle2: ennemy }) &&
-      player.isAttacking &&
-      player.frameCurrent === 4
+  // -- leftPlayer detect collision
+  if (rectangularCollision({
+      rectangle1: leftPlayer,
+      rectangle2: rightPlayer
+    }) &&
+    leftPlayer.isAttacking &&
+    leftPlayer.frameCurrent === 4
   ) {
-    ennemy.takeHit()
-    player.isAttacking = false
-    gsap.to('#ennemyHealth', {
-      width: ennemy.health + '%'
+    rightPlayer.takeHit()
+    leftPlayer.isAttacking = false
+    gsap.to('#rightPlayerHealth', {
+      width: rightPlayer.health + '%'
     })
   }
-  // if player is missing
-  if (player.isAttacking && player.frameCurrent === 4) {
-    player.isAttacking = false
+  // if leftPlayer is missing
+  if (leftPlayer.isAttacking && leftPlayer.frameCurrent === 4) {
+    leftPlayer.isAttacking = false
   }
 
-  // -- Ennemy collisioon detection
-  if (rectangularCollision({ rectangle1: ennemy, rectangle2: player }) &&
-      ennemy.isAttacking &&
-      ennemy.frameCurrent === 1
+  // -- rightPlayer collisioon detection
+  if (rectangularCollision({
+      rectangle1: rightPlayer,
+      rectangle2: leftPlayer
+    }) &&
+    rightPlayer.isAttacking &&
+    rightPlayer.frameCurrent === 1
   ) {
-    ennemy.isAttacking = false
-    player.takeHit()
-    gsap.to('#playerHealth', {
-      width: player.health + '%'
+    rightPlayer.isAttacking = false
+    leftPlayer.takeHit()
+    gsap.to('#leftPlayerHealth', {
+      width: leftPlayer.health + '%'
     })
   }
-  // if ennemy is missing
-  if (ennemy.isAttacking && ennemy.frameCurrent === 2) {
-    ennemy.isAttacking = false
+  // if rightPlayer is missing
+  if (rightPlayer.isAttacking && rightPlayer.frameCurrent === 2) {
+    rightPlayer.isAttacking = false
   }
 
   // end game on health
-  if (player.health <= 0 || ennemy.health <= 0) {
-    determineWinner({ player, ennemy, timerId })
+  if (leftPlayer.health <= 0 || rightPlayer.health <= 0) {
+    determineWinner({
+      leftPlayer,
+      rightPlayer,
+      timerId
+    })
   }
 }
 
 animate()
-
-window.addEventListener('keydown', (event) => {
-  if (!player.dead) {
-    switch (event.key) {
-      case 'd':
-        keys.d.pressed = true
-        player.lastKey = 'd'
-        break
-      case 'q':
-        keys.q.pressed = true
-        player.lastKey = 'q'
-        break
-      case 'z':
-        player.velocity.y = -20
-        break
-      case ' ':
-        player.attack()
-        break
-    }
-  }
-
-  if (!ennemy.dead) {
-    switch (event.key) {
-      // -- Ennemy
-      case 'ArrowRight':
-        keys.ArrowRight.pressed = true
-        ennemy.lastKey = 'ArrowRight'
-        break
-      case 'ArrowLeft':
-        keys.ArrowLeft.pressed = true
-        ennemy.lastKey = 'ArrowLeft'
-        break
-      case 'ArrowUp':
-        ennemy.velocity.y = -20
-        break
-      case 'ArrowDown':
-        ennemy.attack()
-        break
-    }
-  }
-})
-
-window.addEventListener('keyup', (event) => {
-  switch (event.key) {
-    case 'd':
-      keys.d.pressed = false
-      break
-    case 'q':
-      keys.q.pressed = false
-      break
-    // -- ennemy keys
-    case 'ArrowRight':
-      keys.ArrowRight.pressed = false
-      break
-    case 'ArrowLeft':
-      keys.ArrowLeft.pressed = false
-      break
-  }
-})

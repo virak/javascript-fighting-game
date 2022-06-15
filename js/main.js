@@ -1,9 +1,12 @@
-const canvas = document.querySelector('canvas')
-const contextCanvas = canvas.getContext('2d')
+import { rectangularCollision, determineWinner, decreaseTimer, timerId } from './utils.js'
+import { Sprite, Fighter } from './classes.js'
+import { initKeybaordEventListener } from './keyboard.js'
+
+export const canvas = document.querySelector('canvas')
+export const contextCanvas = canvas.getContext('2d')
 
 canvas.width = 1024
 canvas.height = 576
-const gravity = 0.7
 contextCanvas.fillRect(0, 0, canvas.width, canvas.height)
 
 const background = new Sprite({
@@ -15,6 +18,7 @@ const background = new Sprite({
 })
 
 const shop = new Sprite({
+  contextCanvas,
   position: {
     x: 600,
     y: 128
@@ -24,7 +28,7 @@ const shop = new Sprite({
   frameMax: 6
 })
 
-const leftPlayer = new Fighter({
+export const leftPlayer = new Fighter({
   position: {
     x: 100,
     y: 0
@@ -32,10 +36,6 @@ const leftPlayer = new Fighter({
   velocity: {
     x: 0,
     y: 10
-  },
-  offset: {
-    x: 0,
-    y: 0
   },
   imageSrc: './img/samuraiMack/Idle.png',
   frameMax: 8,
@@ -84,7 +84,7 @@ const leftPlayer = new Fighter({
   }
 })
 
-const rightPlayer = new Fighter({
+export const rightPlayer = new Fighter({
   position: {
     x: 860,
     y: 100
@@ -94,10 +94,6 @@ const rightPlayer = new Fighter({
     y: 10
   },
   color: 'blue',
-  offset: {
-    x: -50,
-    y: 0
-  },
   imageSrc: './img/kenji/Idle.png',
   frameMax: 4,
   scale: 2.5,
@@ -145,7 +141,7 @@ const rightPlayer = new Fighter({
   }
 })
 
-const keys = {
+export const keys = {
   d: {
     pressed: false
   },
@@ -160,12 +156,6 @@ const keys = {
   }
 }
 
-let lastKey
-
-
-decreaseTimer()
-
-// ---------------------------------
 function animate() {
   window.requestAnimationFrame(animate)
   contextCanvas.fillStyle = 'black'
@@ -222,6 +212,7 @@ function animate() {
   ) {
     rightPlayer.takeHit()
     leftPlayer.isAttacking = false
+    // eslint-disable-next-line no-undef
     gsap.to('#rightPlayerHealth', {
       width: rightPlayer.health + '%'
     })
@@ -241,6 +232,7 @@ function animate() {
   ) {
     rightPlayer.isAttacking = false
     leftPlayer.takeHit()
+    // eslint-disable-next-line no-undef
     gsap.to('#leftPlayerHealth', {
       width: leftPlayer.health + '%'
     })
@@ -260,4 +252,6 @@ function animate() {
   }
 }
 
+decreaseTimer()
 animate()
+initKeybaordEventListener()

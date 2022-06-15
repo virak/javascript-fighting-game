@@ -1,4 +1,11 @@
-class Sprite {
+import { canvas, contextCanvas } from './main.js'
+
+const gravity = 0.7
+
+/**
+ * Sprite class definition
+ */
+export class Sprite {
   constructor ({ position, imageSrc, scale = 1, frameMax = 1, offset = { x: 0, y: 0} }) {
     this.position = position
     this.width = 50
@@ -44,7 +51,10 @@ class Sprite {
   }
 }
 
-class Fighter extends Sprite{
+/**
+ * Class Fighter
+ */
+export class Fighter extends Sprite{
   constructor ({
     position,
     velocity,

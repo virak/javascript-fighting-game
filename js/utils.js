@@ -1,4 +1,6 @@
-function rectangularCollision({ rectangle1, rectangle2 }) {
+import { leftPlayer, rightPlayer } from './main.js'
+
+export function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
     rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x &&
     rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width &&
@@ -7,7 +9,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   )
 }
 
-function determineWinner({ leftPlayer, rightPlayer, timerId }) {
+export function determineWinner({ leftPlayer, rightPlayer, timerId }) {
   clearTimeout(timerId)
   document.querySelector('#displayText').style.display = 'flex'
 
@@ -20,10 +22,11 @@ function determineWinner({ leftPlayer, rightPlayer, timerId }) {
   }
 }
 
-let timer = 60
-let timerId
 
-function decreaseTimer() {
+let timer = 60
+export let timerId
+
+export function decreaseTimer() {
   timerId = setTimeout(decreaseTimer, 1000)
   if (timer > 0) {
     timer--

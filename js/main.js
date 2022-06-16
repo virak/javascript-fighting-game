@@ -148,6 +148,9 @@ export const keys = {
   q: {
     pressed: false
   },
+  a: {
+    pressed: false
+  },
   ArrowLeft: {
     pressed: false
   },
@@ -171,7 +174,7 @@ function animate() {
   rightPlayer.velocity.x = 0
 
   // -- leftPlayer movement
-  if (keys.q.pressed && leftPlayer.lastKey === 'q') {
+  if ((keys.q.pressed && leftPlayer.lastKey === 'q') || ( keys.a.pressed && leftPlayer.lastKey === 'a')) {
     leftPlayer.velocity.x = -5
     leftPlayer.switchSprite('run')
   } else if (keys.d.pressed && leftPlayer.lastKey === 'd') {

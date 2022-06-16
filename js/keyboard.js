@@ -4,7 +4,7 @@ export function initKeybaordEventListener () {
   window.addEventListener('keydown', (event) => {
     if (!leftPlayer.dead) {
       switch (event.key) {
-      case 'd':
+        case 'd':
           keys.d.pressed = true
           leftPlayer.lastKey = 'd'
           break
@@ -12,7 +12,14 @@ export function initKeybaordEventListener () {
           keys.q.pressed = true
           leftPlayer.lastKey = 'q'
           break
+        case 'a':
+          keys.a.pressed = true
+          leftPlayer.lastKey = 'a'
+          break
         case 'z':
+          leftPlayer.velocity.y = -20
+          break
+        case 'w':
           leftPlayer.velocity.y = -20
           break
         case ' ':
@@ -22,8 +29,7 @@ export function initKeybaordEventListener () {
     }
   
     if (!rightPlayer.dead) {
-      switch (event.key) {
-        // -- rightPlayer
+      switch (event.key) { // -- rightPlayer
         case 'ArrowRight':
           keys.ArrowRight.pressed = true
           rightPlayer.lastKey = 'ArrowRight'
@@ -50,7 +56,9 @@ export function initKeybaordEventListener () {
       case 'q':
         keys.q.pressed = false
         break
-        // -- rightPlayer keys
+      case 'a':
+        keys.a.pressed = false
+        break
       case 'ArrowRight':
         keys.ArrowRight.pressed = false
         break

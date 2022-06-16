@@ -12,6 +12,7 @@ export function rectangularCollision({ rectangle1, rectangle2 }) {
 export function determineWinner({ leftPlayer, rightPlayer, timerId }) {
   clearTimeout(timerId)
   document.querySelector('#displayText').style.display = 'flex'
+  document.querySelector('#displayButtonReplay').style.display = 'flex'
 
   if (leftPlayer.health === rightPlayer.health) {
     document.querySelector('#displayText').innerHTML = 'Tie'

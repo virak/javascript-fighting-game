@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="styles/game.css" rel="stylesheet">
+    <link href="styles/commandInfo.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    
 
     <title>Javascript fighting game</title>
   </head>
   <body>
     <h1>Javascript fighting game</h1>
 
-    <div class="centeredContainer">
+    <div class="gameScreenContainer">
       <div class="mainGameContainer">
         <div class="subMainGameContainer">
           <div class="leftPlayerHealthContainer">
@@ -33,6 +36,20 @@
         <div id="displayText" class="messageMiddleDisplayContainer">Tie</div>
   
         <canvas></canvas>
+      </div>
+    </div>
+
+    <div class="commandInfoContainer">
+      <div>
+        <p>Left player</p>
+        <p>Move:</p>
+        <p>Q,Z,D (Azerty) / A,W,D (Qwerty)</p>
+        <p>Attack: Spacebar</p>
+      </div>
+      <div>
+        <p>Right player</p>
+        <p>Move: <i class="fa-solid fa-circle-left"></i>,<i class="fa-solid fa-circle-up"></i>,<i class="fa-solid fa-circle-right"></i></p>
+        <p>Attack: <i class="fa-solid fa-circle-down"></i></p>
       </div>
     </div>
 

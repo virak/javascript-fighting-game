@@ -1,0 +1,11 @@
+.commandInfoContainer {
+  width: 1032px;
+  margin: 30px auto;
+  background: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border: 2px solid black;
+}

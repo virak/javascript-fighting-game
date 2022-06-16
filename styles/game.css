@@ -83,7 +83,7 @@ h1 {
 
 .messageMiddleDisplayContainer {
     position: absolute;
-    color: white;
+    color: red;
     align-items: center;
     justify-content: center;
     top: 0;

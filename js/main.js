@@ -258,3 +258,11 @@ function animate() {
 decreaseTimer()
 animate()
 initKeybaordEventListener()
+
+
+// -- Handle music background playing
+// -- Warining: most of the browser stop the music because it need an interaction like
+// a button to start the music.
+const backgroundMusic = new Audio('../audio/1-16-One-Eyed-Assassin.mp3')
+backgroundMusic.play()
+// -- -------------------------------------------------------------------

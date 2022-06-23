@@ -15,8 +15,6 @@
     <title>Javascript fighting game</title>
   </head>
   <body>
-    <h1>Javascript fighting game</h1>
-
     <div class="gameScreenContainer">
       <div class="mainGameContainer">
         <div class="subMainGameContainer">
@@ -25,7 +23,7 @@
             <div id="leftPlayerHealth" class="leftPlayerBlueHealthBar"></div>
           </div>
   
-          <div id="timer" class="timerContainer">10</div>
+          <div id="timer" class="timerContainer">--</div>
   
           <div class="rightPlayerHealthContainer">
             <div class="rightPlayerRedHealthBar"></div>
@@ -38,6 +36,9 @@
         </div>
         <div id="displayButtonReplay" class="replayMiddleDisplayContainer">
           <button class="replayButtonStyle" onclick="location.reload()">Replay</button>
+        </div>
+        <div id="displayButtonStartFight" class="startFightButtonMiddleDisplayContainer">
+          <button class="startFightButtonStyle">Start Fight</button>
         </div>
 
         <canvas></canvas>

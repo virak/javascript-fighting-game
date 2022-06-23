@@ -255,14 +255,17 @@ function animate() {
   }
 }
 
-decreaseTimer()
-animate()
-initKeybaordEventListener()
 
+const buttonStartFight = document.querySelector(".startFightButtonStyle")
+buttonStartFight.addEventListener('click', () => {
+  // -- hide start fight button
+  document.querySelector('#displayButtonStartFight').style.display = 'none'
 
-// -- Handle music background playing
-// -- Warining: most of the browser stop the music because it need an interaction like
-// a button to start the music.
-const backgroundMusic = new Audio('../audio/1-16-One-Eyed-Assassin.mp3')
-backgroundMusic.play()
-// -- -------------------------------------------------------------------
+  // -- Start music
+  const backgroundMusic = new Audio('../audio/1-16-One-Eyed-Assassin.mp3')
+  backgroundMusic.play()
+
+  decreaseTimer()
+  animate()
+  initKeybaordEventListener()
+})

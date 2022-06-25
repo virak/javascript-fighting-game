@@ -1,4 +1,5 @@
 import { canvas, contextCanvas } from './main.js'
+import { playSwordPlayerSound } from './sound.js'
 
 const gravity = 0.7
 
@@ -185,6 +186,7 @@ export class Fighter extends Sprite{
           this.image = this.sprites.attack1.image
           this.frameMax = this.sprites.attack1.frameMax
           this.frameCurrent = 0
+          playSwordPlayerSound()
         }
         break
       case 'takeHit':

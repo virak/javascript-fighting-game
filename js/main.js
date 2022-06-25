@@ -1,6 +1,7 @@
 import { rectangularCollision, determineWinner, decreaseTimer, timerId } from './utils.js'
 import { Sprite, Fighter } from './classes.js'
 import { initKeybaordEventListener } from './keyboard.js'
+import { playBackgroundMusic } from './sound.js'
 
 export const canvas = document.querySelector('canvas')
 export const contextCanvas = canvas.getContext('2d')
@@ -261,9 +262,7 @@ buttonStartFight.addEventListener('click', () => {
   // -- hide start fight button
   document.querySelector('#displayButtonStartFight').style.display = 'none'
 
-  // -- Start music
-  const backgroundMusic = new Audio('../audio/1-16-One-Eyed-Assassin.mp3')
-  backgroundMusic.play()
+  playBackgroundMusic()
 
   decreaseTimer()
   animate()

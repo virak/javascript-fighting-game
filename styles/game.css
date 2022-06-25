@@ -112,9 +112,9 @@ h1 {
 }
 
 .startFightButtonStyle {
-    color: red;
+    color: black;
     font-size: 14px;
-    background-color: black;
+    background-color: white;
     padding: 20px;
 }
 

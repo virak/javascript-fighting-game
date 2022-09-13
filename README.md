@@ -23,6 +23,11 @@ In the source code you will see some improvement weither technical or feature wi
 - Handle input for French and English keyboard for the 1st player
 
 
+## Running local version for development mode
+
+You can run this application like anormal web application on the development machine.
+One way to easily and quickly do it is to use the plug in live server in Visual Studio Code.
+
 ## Assets source
 
 Google Drive Assets: https://drive.google.com/drive/folders/1569Y7WYX-aQf6LKstJtpuWQD0ylWxZ4P

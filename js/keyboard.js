@@ -17,7 +17,9 @@ export function initKeybaordEventListener () {
           leftPlayer.lastKey = 'a'
           break
         case 'z':
-          leftPlayer.velocity.y = -20
+          if (leftPlayer.velocity.y === 0) {
+            leftPlayer.velocity.y = -20
+          }
           break
         case 'w':
           leftPlayer.velocity.y = -20
@@ -39,7 +41,9 @@ export function initKeybaordEventListener () {
           rightPlayer.lastKey = 'ArrowLeft'
           break
         case 'ArrowUp':
-          rightPlayer.velocity.y = -20
+          if (rightPlayer.velocity.y === 0) {
+            rightPlayer.velocity.y = -20
+          }
           break
         case 'ArrowDown':
           rightPlayer.attack()

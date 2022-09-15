@@ -5,6 +5,9 @@ import { playBackgroundMusic } from './sound.js'
 
 export const canvas = document.querySelector('canvas')
 export const contextCanvas = canvas.getContext('2d')
+const playerVelocity = 5
+const maxRightMovementEdge = 960
+const maxLeftMovementEdge = 0
 
 canvas.width = 1024
 canvas.height = 576
@@ -176,11 +179,15 @@ function animate() {
 
   // -- leftPlayer movement
   if ((keys.q.pressed && leftPlayer.lastKey === 'q') || ( keys.a.pressed && leftPlayer.lastKey === 'a')) {
-    leftPlayer.velocity.x = -5
-    leftPlayer.switchSprite('run')
+    if (leftPlayer.position.x > maxLeftMovementEdge) {
+      leftPlayer.velocity.x = -1 * playerVelocity
+      leftPlayer.switchSprite('run')
+    }
   } else if (keys.d.pressed && leftPlayer.lastKey === 'd') {
-    leftPlayer.velocity.x = 5
-    leftPlayer.switchSprite('run')
+    if (leftPlayer.position.x < maxRightMovementEdge) {
+      leftPlayer.velocity.x = playerVelocity
+      leftPlayer.switchSprite('run')
+    }
   } else {
     leftPlayer.switchSprite('idle')
   }
@@ -192,11 +199,15 @@ function animate() {
 
   // -- rightPlayer movement
   if (keys.ArrowLeft.pressed && rightPlayer.lastKey === 'ArrowLeft') {
-    rightPlayer.velocity.x = -5
-    rightPlayer.switchSprite('run')
+    if (rightPlayer.position.x > maxLeftMovementEdge) {
+      rightPlayer.velocity.x = -1 * playerVelocity
+      rightPlayer.switchSprite('run')
+    }
   } else if (keys.ArrowRight.pressed && rightPlayer.lastKey === 'ArrowRight') {
-    rightPlayer.velocity.x = 5
-    rightPlayer.switchSprite('run')
+    if (rightPlayer.position.x < maxRightMovementEdge) {
+      rightPlayer.velocity.x = playerVelocity
+      rightPlayer.switchSprite('run')
+    }
   } else {
     rightPlayer.switchSprite('idle')
   }

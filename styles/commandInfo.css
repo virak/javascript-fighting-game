@@ -13,3 +13,7 @@
 .playerTitleDisplay {
   text-decoration: underline;
 }
+
+.playerMoveText {
+  font-size: 12px;
+}
